@@ -3,7 +3,7 @@ services:
     container_name: TOC-web_scraping
     build:
       context: ./
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     # ports:
     #   - '5000:5000'
     networks:
