@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag flask-python-toc:V2
+      run: docker build . --file dockerfile --tag flask-python-toc:3
