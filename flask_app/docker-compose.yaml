@@ -1,0 +1,14 @@
+services:
+  app:
+    container_name: TOC-web_scraping
+    build:
+    context: ./
+    dockerfile: dockerfile
+    ports:
+      - '5000:5000'
+    networks:
+      - tunnel
+
+  networks:
+    tunnel:
+      external: true
