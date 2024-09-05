@@ -9,6 +9,6 @@ services:
     networks:
       - tunnel
 
-  networks:
-    tunnel:
-      external: true
+networks:
+  tunnel:
+    external: true
