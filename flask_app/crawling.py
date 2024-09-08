@@ -30,7 +30,7 @@ def crawling():
     for link in listOfmonth:
         resp = requests.get(f"{basePath}{link[9:-1]}")
         resp = resp.text
-        lst = re.findall(r'href="https://www.eurogamer.net/.*-review"',resp) #digitalfoudry should not exist
+        lst = re.findall(r'href="https://www.eurogamer.net/(?!digitalfoundry).*-review"',resp)
         listOfLink.extend(lst)
         print(link, "success", len(lst))
         if len(listOfLink) > 400:
