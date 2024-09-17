@@ -4,12 +4,14 @@ import re, requests
 #https://www.eurogamer.net/archive/YYYY/MM
 #https://www.eurogamer.net/reviews
 
-def crawling():
+def crawling_one():
     listOfLink = []
-    startPath = '/archive/2024/09'
     basePath = "https://www.eurogamer.net"
+    startPath = '/archive/2024/09'
 
     resp = requests.get(f"{basePath}{startPath}")
+    if not resp.ok :
+        raise(Exception("404 Not found"))
     resp = resp.text
 
     ## Test Regular Expression ##
@@ -17,18 +19,20 @@ def crawling():
     # lst = re.findall(r'<a href="https://www.eurogamer.net/.*-review.*">',testStr)
     # print(lst)
 
-    listOfmonth = re.findall(r'<a href="/archive/[0-9]*/[0-9]*"', resp)
-    print(len(listOfmonth))
+    listOfMonth = re.findall(r'<a href="/archive/[0-9]*/[0-9]*"', resp)
+    print(len(listOfMonth))
 
     ## Test Only One Page ##
-    # resp = requests.get(f"{basePath}{listOfmonth[0][9:-1]}")
+    # resp = requests.get(f"{basePath}{listOfMonth[0][9:-1]}")
     # resp = resp.text
     # lst = re.findall(r'href="https://www.eurogamer.net/.*-review.*"',resp)
     # for l in lst:
     #     print(l)
 
-    for link in listOfmonth:
+    for link in listOfMonth:
         resp = requests.get(f"{basePath}{link[9:-1]}")
+        if not resp.ok :
+            raise(Exception("404 Not found"))
         resp = resp.text
         lst = re.findall(r'href="https://www.eurogamer.net/(?!digitalfoundry).*-review"',resp)
         listOfLink.extend(lst)
@@ -40,7 +44,6 @@ def crawling():
     for link in listOfLink:
         print(link)
 
-
 print("Start")
-crawling()
+crawling_one()
 print("End")
