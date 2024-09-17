@@ -12,17 +12,17 @@ def crawling_two():
         raise(Exception("404 Not found"))
     resp =resp.text
 
-    ## Test Regular Expression ##
-    testStr = 'dsdsdsdss<a href="/wiki/List_of_PC_games_(dsdsd)"dsdsdsdsd'
-    lst = re.findall(r'(/wiki/List_of_PC_games_\()(A[A-Za-z]|[B-Zb-z])([A-Za-z]*\)")',testStr)
-    print(len(lst))
-    print(lst)
+    # Test Regular Expression ##
 
-    # listOfAlpha = re.findall(r'(/wiki/List_of_PC_games_\()(A[A-Za-z]+|[B-Zb-z])([A-Za-z]*\)")',resp)
-    # print(len(listOfAlpha))
-    # for link in listOfAlpha:
-    #     print(link[:-1])
-    
+    listOfAlpha = re.findall(r'(/wiki/List_of_PC_games_\()(A[A-Za-z]|[B-Zb-z])([A-Za-z]*\)")',resp)
+    listOfAlpha = list(map(lambda x: x[0]+x[1]+x[2][:-1],listOfAlpha))
+    print(len(listOfAlpha))
+    for link in listOfAlpha:
+        print(link)
+
+    listOfGame = re.findall(r'<tr>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>',resp)
+    print(listOfGame[148])
+    print(len(listOfGame))
 
 print("Start")
 crawling_two()
