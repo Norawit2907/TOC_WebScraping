@@ -3,13 +3,14 @@
 <p>Main branch is the Deployed branch and will run on production when commit and pull request</p>
 <p>!!!! work on develop first !!!!</p>
 
-<p>How to start working</p>
-```bash
-pip install -r ./requirements.txt
-```
+<h3>How to start working</h3>
 
-<p>How to run flask</p>
-```bash
-python ./flask_app/app.py
+```
+$ pip install -r ./requirements.txt
+```
+<h3>How to run flask</h3>
+
+```
+$ python ./flask_app/app.py
 ```
 
