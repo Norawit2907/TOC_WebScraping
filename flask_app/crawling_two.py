@@ -3,6 +3,13 @@ import re, requests
 ## Path ref ##
 #https://en.wikipedia.org/wiki/List_of_PC_games_(A)
 
+## Return format ##
+# List of Tuple
+# [(<Game name>, <Starter alphabet>, <Release date>),...]
+# <Game name>        : str
+# <Starter alphabet> : str
+# <Release date>     : tuple of int format => (YYYY,MM,DD)
+
 def crawling_two():
     basePath = "https://en.wikipedia.org"
     startPath = "/wiki/List_of_PC_games_(A)"
@@ -26,7 +33,7 @@ def crawling_two():
     ## Crawling row of game in bade HTML ##
     listOfGame = re.findall(r'<tr>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>',resp)
 
-    ## Crawling game name in base HTML ##
+    ## Crawling game name and release date in base HTML ##
     for game in listOfGame:
         gameName = re.findall(r'<a .*><i>(.*)</i></a>|<i><a .*>(.*)</a></i>|<a .*>(.*)</a>|<i>(.*)</i>',game[0])
         gameDate = re.findall(r'<span data-sort-value="([0-9]{12})-([0-2][0-9])-([0-3][0-9])-[0-9]{4}"',game[5])
@@ -48,7 +55,7 @@ def crawling_two():
     #     print("--------")
     # exit()
     
-    ## Crawling game name in other HTML ##
+    ## Crawling game name and release date in other HTML ##
     for link in listOfAlpha:
         resp = requests.get(f"{basePath}{link}")
         if not resp.ok :
@@ -76,10 +83,10 @@ def crawling_two():
                     listOfGameName.append((gameName[0][3],header[0],gameDate))
 
     ## Print result ##
-    for i in listOfGameName:
-        print(i)
-        print("--------")
-    print(len(listOfGameName))
+    # for i in listOfGameName:
+    #     print(i)
+    #     print("--------")
+    # print(len(listOfGameName))
 
     return listOfGameName
 
