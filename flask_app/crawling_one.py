@@ -1,5 +1,7 @@
 import re, requests
 
+## Not in used ##
+
 ## Path ref ##
 #https://www.eurogamer.net/archive/YYYY/MM
 #https://www.eurogamer.net/reviews
