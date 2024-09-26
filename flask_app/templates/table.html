@@ -11,8 +11,10 @@
   </head>
   <body>
     <h1>Get the Table</h1>
-    <form action="/getcsv">
-      <input type="submit" value="Get CSV FILE!"/>
+    <form action="/crawl" method="GET">
+        <label for="findname">Name of game:</label>
+        <input type="text" id="findname" name="name"><br><br>
+        <input type="submit" value="Search">
     </form>
     <ul>
         <table>
