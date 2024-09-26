@@ -6,14 +6,20 @@
   </head>
   <body>
     <h1>Hello, Flask with Templates!</h1>
-    <form action="/getcsv">
-      <input type="submit" value="Get CSV FILE!"/>
-      <p>{{ins}}</p>
-    </form>
     <form action="/crawl" method="GET">
       <label for="findname">Name of game:</label>
       <input type="text" id="findname" name="name"><br><br>
       <input type="submit" value="Search">
+  </form>
+  <br><br>
+  <form action="/getcsv">
+      <label for="findname">Name of game:</label>
+      <input type="text" id="findname" name="name"><br><br>
+      <input type="submit" value="Get CSV FILE!"/>
+  </form>
+  <br><br>
+  <form action="/crawl" method="GET">
+      <input type="submit" value="Get all">
   </form>
   </body>
 </html>
