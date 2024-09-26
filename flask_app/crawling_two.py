@@ -89,8 +89,3 @@ def crawling_two():
     # print(len(listOfGameName))
 
     return listOfGameName
-
-
-print("Start")
-crawling_two()
-print("End")
