@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Flask App</title>
+  </head>
+  <body>
+    <h1>Get the Table</h1>
+    <form action="/getcsv">
+      <input type="submit" value="Get CSV FILE!"/>
+    </form>
+    <ul>
+      {% for x in game %}
+        <li>{{ x }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
