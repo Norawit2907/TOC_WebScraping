@@ -1,4 +1,4 @@
-from flask import Flask, Response, request
+from flask import Flask, Response, request, jsonify
 from flask import render_template
 from crawling_two import crawling_two
 from io import StringIO
@@ -29,6 +29,16 @@ def getCSV():
                  "attachment; filename=games.csv"}
     ) 
 
+# @app.route("/crawl")
+# def crawl():
+#     games  = crawling_two()
+#     search_query = request.args.get('name', '').lower()
+#     if search_query:
+#         games = [game for game in games if search_query in game[0].lower()]
+        
+#     game_list = [{'game': game[0], 'alphabet': game[1], 'release_date': game[2]} for game in games]    
+#     return render_template('index.html', game=game_list, search_name=search_query)
+
 @app.route("/crawl")
 def crawl():
     games  = crawling_two()
@@ -37,7 +47,7 @@ def crawl():
         games = [game for game in games if search_query in game[0].lower()]
         
     game_list = [{'game': game[0], 'alphabet': game[1], 'release_date': game[2]} for game in games]    
-    return render_template('table.html', game=game_list, search_name=search_query)
+    return jsonify({'game': game_list, 'search_name': search_query})
 
   
 if __name__ == "__main__":
