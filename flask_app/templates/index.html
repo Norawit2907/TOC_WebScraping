@@ -96,9 +96,29 @@
       padding: 10px;
       text-align: left;
     }
+
+    .spinner {
+      width: 100px;
+      height: 100px;
+      background-image: url('https://avatars.githubusercontent.com/u/83394476?v=4');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: spin 2s linear infinite;
+    }
+
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
   </style>
 </head>
 <body>
+
+  <div class="spinner">
+  </div>
+
   <h1>TOC PROJECT 101</h1>
   <form id="searchForm">
     <label for="findname">Name of game:</label>
