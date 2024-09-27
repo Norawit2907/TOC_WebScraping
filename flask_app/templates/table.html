@@ -18,8 +18,7 @@
     </form>
     <br><br>
     <form action="/getcsv">
-        <label for="findname">Name of game:</label>
-        <input type="text" id="findname" name="name"><br><br>
+        <input type="hidden" name="name" value="{{ search_name }}"> 
         <input type="submit" value="Get CSV FILE!"/>
     </form>
     <br><br>
