@@ -19,7 +19,7 @@ $ pip install -r ./requirements.txt
 <p>Run Flask app</p>
 
 ```
-$ cd cd .\flask_app\
+$ cd .\flask_app\
 ```
 
 ```
