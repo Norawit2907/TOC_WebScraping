@@ -8,7 +8,7 @@
 <h2> Create your own Virtual Environment in your computer</h2>
 
 ```
-$ python3 -m venv .venv  
+$ py -3 -m venv .venv
 ```
 
 <h2>activate your environment first!!!</h2>
@@ -21,6 +21,7 @@ $ .\.venv\Scripts\activate
 
 ```
 $ pip install -r ./requirements.txt
+$ python -m pip install requests
 ```
 
 <p>Run Flask app</p>
