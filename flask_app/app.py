@@ -1,4 +1,4 @@
-from flask import Flask, Response, request
+from flask import Flask, Response, request, jsonify
 from flask import render_template
 from crawling_two import crawling_two
 from io import StringIO
@@ -37,7 +37,8 @@ def crawl():
         games = [game for game in games if search_query in game[0].lower()]
         
     game_list = [{'game': game[0], 'alphabet': game[1], 'release_date': game[2]} for game in games]    
-    return game_list
+    return jsonify({'game': game_list, 'search_name': search_query})
+
   
 if __name__ == "__main__":
     app.run(debug=True)
