@@ -5,11 +5,18 @@
 
 <h3>How to start working</h3>
 
-<p>activate your environment first!!!</p>
+<h2> Create your own Virtual Environment in your computer</h2>
 
 ```
-$ .\myenv\Scripts\activate
+$ python3 -m venv .venv  
 ```
+
+<h2>activate your environment first!!!</h2>
+
+```
+$ .\.venv\Scripts\activate
+```
+
 <p>install dependency</p>
 
 ```
@@ -19,7 +26,7 @@ $ pip install -r ./requirements.txt
 <p>Run Flask app</p>
 
 ```
-$ cd cd .\flask_app\
+$ cd .\flask_app\
 ```
 
 ```
