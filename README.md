@@ -22,11 +22,6 @@ $ .venv\Scripts\activate
 ```
 $ pip install -r ./requirements.txt
 ```
-<p>if your python can't import requests</p>
-
-```
-$ python -m pip install requests
-```
 
 <p>Run Flask app</p>
 
