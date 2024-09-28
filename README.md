@@ -5,12 +5,23 @@
 
 <h3>How to start working</h3>
 
+<p>activate your environment first!!!</p>
+
+```
+$ .\myenv\Scripts\activate
+```
+<p>install dependency</p>
+
 ```
 $ pip install -r ./requirements.txt
 ```
-<h3>How to run flask</h3>
+
+<p>Run Flask app</p>
 
 ```
-$ python ./flask_app/app.py
+$ cd cd .\flask_app\
 ```
 
+```
+$ flask --app app run
+```
