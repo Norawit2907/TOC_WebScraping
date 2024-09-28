@@ -14,7 +14,7 @@ $ py -3 -m venv .venv
 <h2>activate your environment first!!!</h2>
 
 ```
-$ .\.venv\Scripts\activate
+$ .venv\Scripts\activate
 ```
 
 <p>install dependency</p>
