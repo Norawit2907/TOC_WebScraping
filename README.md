@@ -22,7 +22,7 @@ $ .venv\Scripts\activate
 ```
 $ pip install -r ./requirements.txt
 ```
-<p>if your your python can't import requests</p>
+<p>if your python can't import requests</p>
 
 ```
 $ python -m pip install requests
