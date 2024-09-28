@@ -5,13 +5,13 @@
 
 <h3>How to start working</h3>
 
-<h2> Create your own Virtual Environment in your computer</h2>
+<h2>Do this ONCE!!!. Create your own Virtual Environment in your computer</h2>
 
 ```
 $ py -3 -m venv .venv
 ```
 
-<h2>activate your environment first!!!</h2>
+<h2>Do this everytime before you work. Activate your environment</h2>
 
 ```
 $ .venv\Scripts\activate
@@ -21,6 +21,10 @@ $ .venv\Scripts\activate
 
 ```
 $ pip install -r ./requirements.txt
+```
+<p>if your your python can't import requests</p>
+
+```
 $ python -m pip install requests
 ```
 
