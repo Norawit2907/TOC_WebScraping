@@ -149,6 +149,7 @@
             <th>Game</th>
             <th>Alphabet</th>
             <th>Release Date</th>
+            <th>Picture</th>
           </tr>
         </thead>
         <tbody id="gameTableBody">
@@ -160,7 +161,7 @@
   <script>
     document.getElementById('searchForm').onsubmit = async function(event) {
       event.preventDefault();
-      
+
       const searchButton = document.querySelector('#searchForm input[type="submit"]');
       searchButton.disabled = true; 
 
@@ -178,6 +179,7 @@
             <td>${game.game}</td>
             <td>${game.alphabet}</td>
             <td>${game.release_date}</td>
+            <td>${game.pic_link}</td>
           `;
           gameTableBody.appendChild(row);
         });
