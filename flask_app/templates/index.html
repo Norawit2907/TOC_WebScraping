@@ -138,7 +138,7 @@
       <div class="modal-header">
         <h2>Search Results</h2>
         <form action="/getcsv">
-          <input type="hidden" name="name" value="{{ search_name }}"> 
+          <input type="hidden" id="search_name_input" name="name" value="">
           <input type="submit" value="Get CSV FILE!"/>
         </form>
         <span class="close">&times;</span>
@@ -188,6 +188,9 @@
         row.innerHTML = '<td colspan="3">No results found</td>';
         gameTableBody.appendChild(row);
       }
+
+      document.getElementById('search_name_input').value = name; 
+
       spinElement.classList.toggle('start-spin'); 
       searchButton.disabled = false; 
       document.getElementById('myModal').style.display = "block";
