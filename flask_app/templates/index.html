@@ -107,6 +107,13 @@
       animation-play-state: paused;
     }
 
+    .spinner.start-spin {
+      animation-play-state: running;
+    }
+
+    .spinner.stop-spin {
+      animation-play-state: paused;
+    }
 
     @keyframes spin {
       0% { transform: rotate(0deg); }
@@ -114,9 +121,7 @@
     }
 
 
-    .spinner.start-spin {
-      animation-play-state: running;
-    }
+    
 
   </style>
 </head>
@@ -132,8 +137,11 @@
     <input type="submit" value="Search">
   </form>
 
+  <div id="gameTableBody">
+  </div>
+
   <!-- Modal for game list -->
-  <div id="myModal" class="modal">
+  <!-- <div id="myModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <h2>Search Results</h2>
@@ -143,22 +151,13 @@
         </form>
         <span class="close">&times;</span>
       </div>
-      <table id="gameTable">
-        <thead>
-          <tr>
-            <th>Game</th>
-            <th>Alphabet</th>
-            <th>Release Date</th>
-            <th>Picture</th>
-          </tr>
-        </thead>
-        <tbody id="gameTableBody">
-        </tbody>
-      </table>
+      <div id="gameTableBody">
+      </div>
     </div>
-  </div>
+  </div> -->
 
   <script>
+    let count = 0;
     document.getElementById('searchForm').onsubmit = async function(event) {
       event.preventDefault();
 
@@ -174,46 +173,55 @@
 
       if (data.game.length > 0) {
         data.game.forEach(game => {
-          const row = document.createElement('tr');
+          const row = document.createElement('div');
           row.innerHTML = `
-            <td>${game.game}</td>
-            <td>${game.alphabet}</td>
-            <td>${game.release_date}</td>
-            <td>${game.pic_link}</td>
+            <img src="${game.pic_link}">
+            <div>${game.game}</div>
+            <div>${game.alphabet}</div>
+            <div>${game.release_date}</div>
+            <div>${game.pic_link}</div>
           `;
           gameTableBody.appendChild(row);
+          count++;
         });
       } else {
-        const row = document.createElement('tr');
-        row.innerHTML = '<td colspan="3">No results found</td>';
+        const row = document.createElement('p');
+        row.innerHTML = 'No results found';
         gameTableBody.appendChild(row);
       }
+      document.querySelector("html").style.height = count/2 * 100 + "vh";
+      // document.getElementById('search_name_input').value = name; 
 
-      document.getElementById('search_name_input').value = name; 
-
-      spinElement.classList.toggle('start-spin'); 
+      stopSpinner();
       searchButton.disabled = false; 
-      document.getElementById('myModal').style.display = "block";
+      // document.getElementById('myModal').style.display = "block";
     };
+    // const modal = document.getElementById("myModal");
 
-    const modal = document.getElementById("myModal");
-
-    const span = document.getElementsByClassName("close")[0];
+    // const span = document.getElementsByClassName("close")[0];
 
     const spinElement = document.querySelector('.spinner');
-    span.onclick = function() {
-      modal.style.display = "none";
+    // span.onclick = function() {
+    //   modal.style.display = "none";
+    // }
+    // window.onclick = function(event) {
+    //   if (event.target == modal) {
+    //     modal.style.display = "none";
+    //   }
+    // }
+    function startSpinner() {
+      spinElement.classList.add('start-spin');
     }
 
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
+    function stopSpinner() {
+      spinElement.classList.remove('start-spin');
+      spinElement.classList.add('stop-spin');
+      spinElement.classList.remove('stop-spin');
     }
 
     document.getElementById('searchForm').addEventListener('submit', function(event) {
-      const spinElement = document.querySelector('.spinner');
-      spinElement.classList.toggle('start-spin');
+      // spinElement.classList.toggle('start-spin');
+      startSpinner();
     });
   </script>
 </body>
