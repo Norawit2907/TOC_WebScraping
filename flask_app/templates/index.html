@@ -233,7 +233,7 @@
           <div class="spinner"></div>
       </div>
       
-      <h1>The ToC Web Crawler.</h1>
+      <h1>The ToC Web Crawler.tst</h1>
     </header>
   
     <section class="intro">
@@ -258,20 +258,23 @@
     </div>
 
     <!-- Modal for game list -->
-    <!-- <div id="myModal" class="modal">
+    <div id="myModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
-          <h2>Search Results</h2>
-          <form action="/getcsv">
-            <input type="hidden" id="search_name_input" name="name" value="">
-            <input type="submit" value="Get CSV FILE!"/>
-          </form>
-          <span class="close">&times;</span>
+          <h2>Credit</h2>
         </div>
-        <div id="gameTableBody">
-        </div>
+        <p>65010971 วสิษฐ์พล มลิวัลย์</p>
+        <p>65010512 นรวิชญ์ โฆษิตพันธวงศ์</p>
+        <p>65010627 ปัณณทัต โรจน์เอกจิตต์</p>
+        <p>65010703 ธนพล ศรีสุวรรณ</p>
+        <p>65011084 สรัล บัวหภักดี</p>
+        <p>65010710 พศิน ม่วงไหมแพร</p>
+        <p>65010796 ธันย์ธนัช เงาวิศิษฎ์กุล</p>
+        <p>65010101 คฑาภัท คุณธรรมสถิต</p>
+        <p>65010662 พงศพัศ วงศ์สวัสดิ์</p>
+        <p>65010907 รณกร คูประสิทธิ์</p>
       </div>
-    </div> -->
+    </div>
   
 
   <script>
@@ -314,19 +317,19 @@
       searchButton.disabled = false; 
       // document.getElementById('myModal').style.display = "block";
     };
-    // const modal = document.getElementById("myModal");
+    const modal = document.getElementById("myModal");
 
-    // const span = document.getElementsByClassName("close")[0];
+    const span = document.getElementsByClassName("credits-btn")[0];
 
     const spinElement = document.querySelector('.spinner');
-    // span.onclick = function() {
-    //   modal.style.display = "none";
-    // }
-    // window.onclick = function(event) {
-    //   if (event.target == modal) {
-    //     modal.style.display = "none";
-    //   }
-    // }
+    span.onclick = function() {
+      modal.style.display = "block";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
     function startSpinner() {
       spinElement.classList.add('start-spin');
     }
