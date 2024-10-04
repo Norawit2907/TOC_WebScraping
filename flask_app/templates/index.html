@@ -3,37 +3,135 @@
 <head>
   <meta charset="utf-8">
   <title>Flask App</title>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abril+Fatface" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Akshar' rel='stylesheet'>
   <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     }
 
-    h1 {
+    body {
+
+      background-color: #f6e7d8;
+      color: #161414;
+      padding: 20px;
+
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+
+    header {
+      height: 100px;
+      position: relative;
+      padding-top: 30px;
+      padding-bottom: 50px;
       text-align: center;
+    }
+
+
+
+    .top-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      align-items: center;
+    }
+
+    .credits-btn {
+      padding: 5px 30px;
+      font-family: "Abril Fatface";
+      background-color: #c29797;
+      cursor: pointer;
       margin-bottom: 20px;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
+    header h1 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      font-weight: normal;
+      text-align: left;
       align-items: center;
+      font-family: "Abril Fatface";
+    }
+    
+    .intro {
+    margin-bottom: 50px;
+    text-align: left;
     }
 
-    label, input[type="text"] {
-      margin-bottom: 10px;
-      font-size: 16px;
+    .intro h2 {
+      font-size: 4rem;
+      font-weight: normal;
+      font-family: "Abril Fatface"
     }
 
-    input[type="submit"] {
-      font-size: 16px;
-      padding: 5px 10px;
-      cursor: pointer;
+    .slashes {
+      font-size: 2.5rem;
+      color: #3a2b2b;
+    }
+
+    .noun {
+      font-style: italic;
+      font-size: 1.2rem;
+      margin-top: 10px;
+      margin-bottom: 40px;
+    }
+
+    .description {
+      font-size: 1.3rem;
+      line-height: 1.5;
+      max-width: 100%;
+      font-family: 'Akshar';
+    }
+
+    .crawler {
+      display: flex;
+      margin-bottom: 50px;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .crawler h2 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        font-weight: Normal;
+        font-family: "Abril Fatface"
+    }
+
+    .crawler-form {
+        align-self: center;
+        width: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 2px solid #3a2b2b;
+    }
+
+    .crawler-form input {
+        width: 100%;
+        background: transparent;
+        padding: 10px 15px;
+        font-size: 1rem;
+        padding-right: 50px;
+        outline: none;
+        border: 0;
+    }
+
+    .crawler-form button {
+        padding: 10px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
     }
 
     /* Modal styles */
@@ -98,8 +196,8 @@
     }
 
     .spinner {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       background-image: url('https://avatars.githubusercontent.com/u/83394476?v=4');
       background-size: contain;
       background-repeat: no-repeat;
@@ -115,6 +213,8 @@
       animation-play-state: paused;
     }
 
+    
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -126,42 +226,60 @@
   </style>
 </head>
 <body>
+  <div class="container">
+    <header>
+      <div class="top-right">
+          <button class="credits-btn"><u>Credits</u></button>
+          <div class="spinner"></div>
+      </div>
+      
+      <h1>The ToC Web Crawler.</h1>
+    </header>
+  
+    <section class="intro">
+      <h2>What is <span class="slashes">\\</span><br> the Web Crawler?</h2>
+      <p class="noun">NOUN.</p>
+      <p class="description">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A web crawler is an automated program that explores websites to gather information, such as text and links, from web pages. Search engines like Google use crawlers to build a large database or index of web content. When a user searches for something, the search engine uses this index to provide relevant results. Web crawlers follow links from one page to another, ensuring the index stays updated with new and changed information across the web.
+      </p>
+    </section>
 
-  <div class="spinner">
+    <section class="crawler" >
+      <h2>Start Crawling.</h2>
+      <form class="crawler-form" id="searchForm">
+        <input type="text" id ="findname" placeholder="Enter Name of the game">
+        <button type="submit"><i class="fa fa-search" ></i></button>
+      </form>
+    </section>
+
   </div>
 
-  <h1>TOC PROJECT 101</h1>
-  <form id="searchForm">
-    <label for="findname">Name of game:</label>
-    <input type="text" id="findname" name="name"><br><br>
-    <input type="submit" value="Search">
-  </form>
-
-  <div id="gameTableBody">
-  </div>
-
-  <!-- Modal for game list -->
-  <!-- <div id="myModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Search Results</h2>
-        <form action="/getcsv">
-          <input type="hidden" id="search_name_input" name="name" value="">
-          <input type="submit" value="Get CSV FILE!"/>
-        </form>
-        <span class="close">&times;</span>
-      </div>
-      <div id="gameTableBody">
-      </div>
+    <div id="gameTableBody">
     </div>
-  </div> -->
+
+    <!-- Modal for game list -->
+    <!-- <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Search Results</h2>
+          <form action="/getcsv">
+            <input type="hidden" id="search_name_input" name="name" value="">
+            <input type="submit" value="Get CSV FILE!"/>
+          </form>
+          <span class="close">&times;</span>
+        </div>
+        <div id="gameTableBody">
+        </div>
+      </div>
+    </div> -->
+  
 
   <script>
     let count = 0;
     document.getElementById('searchForm').onsubmit = async function(event) {
       event.preventDefault();
 
-      const searchButton = document.querySelector('#searchForm input[type="submit"]');
+      const searchButton = document.querySelector('#searchForm button[type="submit"]');
       searchButton.disabled = true; 
 
       const name = document.getElementById('findname').value;
