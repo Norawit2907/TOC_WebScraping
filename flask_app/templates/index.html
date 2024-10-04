@@ -220,8 +220,43 @@
       100% { transform: rotate(360deg); }
     }
 
+    .card { 
+      border: 1px solid;
+      border-radius:  1.5rem;
+      display: flex;
+      flex-direction: column;
+      width: 350px;
+      align-items: center;
+      background-color: white;
+      margin: 0px 30px;
+      
+      padding-bottom: 20px;
+    }
 
+    .card li {
+      list-style: none;
+      margin: 10px 10px;
+    }
     
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin: 20px 0px;
+    }
+
+    #card-img-container {
+      width: 100%;
+      height:200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #card-img {
+      height: 100%; 
+      width: 100%;
+      border-radius: 1.5rem 1.5rem 0 0;
+    }
 
   </style>
 </head>
@@ -276,6 +311,10 @@
 
   <script>
     let count = 0;
+    const cardCount = 3;
+    let rows = 0;
+    let addedCardPerRow = 0;
+    let currentRow = 0;
     document.getElementById('searchForm').onsubmit = async function(event) {
       event.preventDefault();
 
@@ -290,16 +329,33 @@
       gameTableBody.innerHTML = '';
 
       if (data.game.length > 0) {
+        console.log('hi');
+        for (let i = 0; i < Math.ceil(data.game.length/cardCount); i++) { 
+            const row = document.createElement('div');
+            row.className = 'row'
+            row.id = `row${i}`
+            gameTableBody.appendChild(row);
+            console.log('hi');
+        }
         data.game.forEach(game => {
-          const row = document.createElement('div');
-          row.innerHTML = `
-            <img src="${game.pic_link}">
-            <div>${game.game}</div>
-            <div>${game.alphabet}</div>
-            <div>${game.release_date}</div>
-            <div>${game.pic_link}</div>
+          if (addedCardPerRow == cardCount) {
+            currentRow++;
+            addedCardPerRow = 0;
+          } 
+          const card = document.createElement('div');
+          card.className = 'card'
+          card.innerHTML = `
+            <div id='card-img-container'>
+              <img id = 'card-img' src="${game.pic_link}">
+            </div>
+            <ul>
+              <li>Name: ${game.game}</li>
+              <li>Alphabet :${game.alphabet}</li>
+              <li>Release Date: ${game.release_date}</li>
+            </ul>
           `;
-          gameTableBody.appendChild(row);
+          document.getElementById(`row${currentRow}`).appendChild(card);
+          addedCardPerRow++;
           count++;
         });
       } else {
