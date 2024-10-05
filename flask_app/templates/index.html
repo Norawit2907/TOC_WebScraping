@@ -109,7 +109,7 @@
 
     .crawler-form {
         align-self: center;
-        width: 600px;
+        width: 50vw;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -263,6 +263,12 @@
       /* border-radius: 1.5rem 1.5rem 0 0; */
     }
 
+    #getdacsv {
+      width: 100%;
+      display: none;
+      justify-content: center;
+    }
+
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -296,6 +302,13 @@
   </div>
 
     <div id="gameTableBody">
+    </div>
+
+    <div id="getdacsv">
+      <form action="/getcsv"  class="crawler-form">
+        <input type="hidden" id="search_name_input" name="name" value="">
+        <input type="submit" value="Get CSV FILE!"/>
+      </form>
     </div>
 
     <div id="myModal" class="modal">
@@ -371,10 +384,11 @@
         gameTableBody.appendChild(row);
       }
       // document.querySelector("html").style.height = data.game.length/2 * 100 + "vh";
-      // document.getElementById('search_name_input').value = name; 
+      document.getElementById('search_name_input').value = name; 
 
       stopSpinner();
       searchButton.disabled = false; 
+      document.getElementById('getdacsv').style.display = "flex";
       // document.getElementById('myModal').style.display = "block";
     };
     const modal = document.getElementById("myModal");
