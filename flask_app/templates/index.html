@@ -94,7 +94,7 @@
 
     .crawler {
       display: flex;
-      margin-bottom: 50px;
+      /* margin-bottom: 50px; */
       text-align: center;
       justify-content: center;
       flex-direction: column;
@@ -132,6 +132,26 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+    }
+
+    .get-form {
+        align-self: center;
+        width: 25vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 2px solid #3a2b2b;
+    }
+
+    .get-form input {
+        width: 100%;
+        background: transparent;
+        padding: 10px 15px;
+        font-size: 1rem;
+        padding-right: 50px;
+        outline: none;
+        border: 0;
     }
 
     /* Modal styles */
@@ -299,17 +319,22 @@
       </form>
     </section>
 
+    <div id="getdacsv">
+      <form action="/getcsv"  class="get-form">
+        <input type="hidden" id="search_name_input" name="name" value="">
+        <input type="submit" value="Get CSV FILE!"/>
+      </form>
+      <form action="/getcsv"  class="get-form">
+        <input type="hidden" name="name" value="">
+        <input type="submit" value="Get ALL GAME IN CSV!"/>
+      </form>
+    </div>
+
   </div>
 
     <div id="gameTableBody">
     </div>
 
-    <div id="getdacsv">
-      <form action="/getcsv"  class="crawler-form">
-        <input type="hidden" id="search_name_input" name="name" value="">
-        <input type="submit" value="Get CSV FILE!"/>
-      </form>
-    </div>
 
     <div id="myModal" class="modal">
       <div class="modal-content">
