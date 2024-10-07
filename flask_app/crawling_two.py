@@ -13,7 +13,7 @@ import re, requests
 def crawl_pic(link):
     basePath = "https://en.wikipedia.org"
     # print(link)
-    resp = requests.get(f"{basePath}{link}")
+    resp = requests.get(f"{basePath}{link}",timeout=60)
     if not resp.ok :
         return ''
     resp =resp.text
@@ -31,7 +31,7 @@ def crawling_two():
     listOfGameName = []
 
     ## Get base HTML ##
-    resp = requests.get(f"{basePath}{startPath}")
+    resp = requests.get(f"{basePath}{startPath}",timeout=60)
     if not resp.ok :
         raise(Exception("404 Not found"))
     resp =resp.text
@@ -84,8 +84,8 @@ def crawling_two():
                     continue
                 # print("case2 ",gameName[0][2],picLink)
                 listOfGameName.append((gameName[0][2],header[0],gameDate,picLink))
-        # print(len(listOfGameName))
-    print(len(listOfGameName))
+        print(len(listOfGameName))
+    # print(len(listOfGameName))
 
     # Test one page ##
     # print(listOfGameName[:21])
@@ -97,7 +97,7 @@ def crawling_two():
     
     # Crawling game name and release date in other HTML ##
     for link in listOfAlpha:
-        resp = requests.get(f"{basePath}{link}")
+        resp = requests.get(f"{basePath}{link}",timeout=60)
         if not resp.ok :
             raise(Exception("404 Not found"))
         resp =resp.text
@@ -143,8 +143,8 @@ def crawling_two():
                         continue
                     # print("case2 ",gameName[0][2],picLink)
                     listOfGameName.append((gameName[0][2],header[0],gameDate,picLink))
-            # print(len(listOfGameName))
-        print(len(listOfGameName))
+            print(len(listOfGameName))
+        # print(len(listOfGameName))
 
     ## Print result ##
     # for i in listOfGameName:

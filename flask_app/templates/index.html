@@ -3,37 +3,155 @@
 <head>
   <meta charset="utf-8">
   <title>Flask App</title>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Abril+Fatface" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Akshar' rel='stylesheet'>
   <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     }
 
-    h1 {
+    body {
+
+      background-color: #f6e7d8;
+      color: #161414;
+      padding: 20px;
+
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+
+    header {
+      height: 100px;
+      position: relative;
+      padding-top: 30px;
+      padding-bottom: 50px;
       text-align: center;
+    }
+
+
+
+    .top-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      align-items: center;
+    }
+
+    .credits-btn {
+      padding: 5px 30px;
+      font-family: "Abril Fatface";
+      background-color: #c29797;
+      cursor: pointer;
       margin-bottom: 20px;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
+    header h1 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      font-weight: normal;
+      text-align: left;
       align-items: center;
+      font-family: "Abril Fatface";
+    }
+    
+    .intro {
+    margin-bottom: 50px;
+    text-align: left;
     }
 
-    label, input[type="text"] {
-      margin-bottom: 10px;
-      font-size: 16px;
+    .intro h2 {
+      font-size: 4rem;
+      font-weight: normal;
+      font-family: "Abril Fatface"
     }
 
-    input[type="submit"] {
-      font-size: 16px;
-      padding: 5px 10px;
-      cursor: pointer;
+    .slashes {
+      font-size: 2.5rem;
+      color: #3a2b2b;
+    }
+
+    .noun {
+      font-style: italic;
+      font-size: 1.2rem;
+      margin-top: 10px;
+      margin-bottom: 40px;
+    }
+
+    .description {
+      font-size: 1.3rem;
+      line-height: 1.5;
+      max-width: 100%;
+      font-family: 'Akshar';
+    }
+
+    .crawler {
+      display: flex;
+      /* margin-bottom: 50px; */
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .crawler h2 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        font-weight: Normal;
+        font-family: "Abril Fatface"
+    }
+
+    .crawler-form {
+        align-self: center;
+        width: 50vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 2px solid #3a2b2b;
+    }
+
+    .crawler-form input {
+        width: 100%;
+        background: transparent;
+        padding: 10px 15px;
+        font-size: 1rem;
+        padding-right: 50px;
+        outline: none;
+        border: 0;
+    }
+
+    .crawler-form button {
+        padding: 10px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .get-form {
+        align-self: center;
+        width: 25vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 2px solid #3a2b2b;
+    }
+
+    .get-form input {
+        width: 100%;
+        background: transparent;
+        padding: 10px 15px;
+        font-size: 1rem;
+        padding-right: 50px;
+        outline: none;
+        border: 0;
     }
 
     /* Modal styles */
@@ -56,7 +174,7 @@
       margin: 5% auto;
       padding: 20px;
       border: 1px solid #888;
-      width: 80%;
+      width: 30%;
     }
     
     .modal-header{
@@ -98,101 +216,245 @@
     }
 
     .spinner {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       background-image: url('https://avatars.githubusercontent.com/u/83394476?v=4');
       background-size: contain;
       background-repeat: no-repeat;
       animation: spin 2s linear infinite;
+      animation-play-state: paused;
     }
 
+    .spinner.start-spin {
+      animation-play-state: running;
+    }
+
+    .spinner.stop-spin {
+      animation-play-state: paused;
+    }
+
+    
 
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
 
-  </style>
-</head>
-<body>
-
-  <div class="spinner">
-  </div>
-
-  <h1>TOC PROJECT 101</h1>
-  <form id="searchForm">
-    <label for="findname">Name of game:</label>
-    <input type="text" id="findname" name="name"><br><br>
-    <input type="submit" value="Search">
-  </form>
-
-  <!-- Modal for game list -->
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Search Results</h2>
-        <form action="/getcsv">
-          <input type="hidden" name="name" value="{{ search_name }}"> 
-          <input type="submit" value="Get CSV FILE!"/>
-        </form>
-        <span class="close">&times;</span>
-      </div>
-      <table id="gameTable">
-        <thead>
-          <tr>
-            <th>Game</th>
-            <th>Alphabet</th>
-            <th>Release Date</th>
-          </tr>
-        </thead>
-        <tbody id="gameTableBody">
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <script>
-    document.getElementById('searchForm').onsubmit = async function(event) {
-      event.preventDefault();
-      const name = document.getElementById('findname').value;
-      const response = await fetch(`/crawl?name=${encodeURIComponent(name)}`);
-      const data = await response.json(); 
-
-      const gameTableBody = document.getElementById('gameTableBody');
-      gameTableBody.innerHTML = '';
-
-      if (data.game.length > 0) {
-        data.game.forEach(game => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${game.game}</td>
-            <td>${game.alphabet}</td>
-            <td>${game.release_date}</td>
-          `;
-          gameTableBody.appendChild(row);
-        });
-      } else {
-        const row = document.createElement('tr');
-        row.innerHTML = '<td colspan="3">No results found</td>';
-        gameTableBody.appendChild(row);
-      }
-
-      document.getElementById('myModal').style.display = "block";
-    };
-
-    const modal = document.getElementById("myModal");
-
-    const span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-      modal.style.display = "none";
+    .card { 
+      /* border: 1px solid; */
+      /* border-radius:  1.5rem; */
+      display: flex;
+      flex-direction: column;
+      width: 350px;
+      align-items: start;
+      background-color: white;
+      margin: 0px 30px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+      transition: 0.3s;
+      padding-bottom: 20px;
     }
 
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    
+    .card li {
+      list-style: none;
+      margin: 10px 10px;
+    }
+    
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin: 20px 0px;
+    }
+
+    #card-img-container {
+      width: 100%;
+      height:200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #card-img {
+      height: 100%; 
+      width: 100%;
+      /* border-radius: 1.5rem 1.5rem 0 0; */
+    }
+
+    #getdacsv {
+      width: 100%;
+      display: none;
+      justify-content: center;
+    }
+
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="top-right">
+          <button class="credits-btn"><u>Credits</u></button>
+          <div class="spinner"></div>
+      </div>
+      
+      <h1>The ToC Web Crawler.  <a href="https://github.com/Norawit2907/TOC_WebScraping">source_code<i class="fa-brands fa-github"></i></a></h1>
+    </header>
+  
+    <section class="intro">
+      <h2>What is <span class="slashes">\\</span><br> the Web Crawler?</h2>
+      <p class="noun">NOUN.</p>
+      <p class="description">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A web crawler is an automated program that explores websites to gather information, such as text and links, from web pages. Search engines like Google use crawlers to build a large database or index of web content. When a user searches for something, the search engine uses this index to provide relevant results. Web crawlers follow links from one page to another, ensuring the index stays updated with new and changed information across the web.
+      </p>
+    </section>
+
+    <section class="crawler" >
+      <h2>Start Crawling.</h2>
+      <form class="crawler-form" id="searchForm">
+        <input type="text" id ="findname" placeholder="Enter Name of the game">
+        <button type="submit"><i class="fa fa-search" ></i></button>
+      </form>
+    </section>
+
+    <div id="getdacsv">
+      <form action="/getcsv"  class="get-form">
+        <input type="hidden" id="search_name_input" name="name" value="">
+        <input type="submit" value="Get CSV FILE!"/>
+      </form>
+      <form action="/getcsv"  class="get-form">
+        <input type="hidden" name="name" value="">
+        <input type="submit" value="Get ALL GAME IN CSV!"/>
+      </form>
+    </div>
+
+  </div>
+
+    <div id="gameTableBody">
+    </div>
+
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Credit</h2>
+        </div>
+        <hr>
+          <p>65010971 วสิษฐ์พล มลิวัลย์</p>
+          <p>65010512 นรวิชญ์ โฆษิตพันธวงศ์</p>
+          <p>65010627 ปัณณทัต โรจน์เอกจิตต์</p>
+          <p>65010703 ธนพล ศรีสุวรรณ</p>
+          <p>65011084 สรัล บัวหภักดี</p>
+          <p>65010710 พศิน ม่วงไหมแพร</p>
+          <p>65010796 ธันย์ธนัช เงาวิศิษฎ์กุล</p>
+          <p>65010101 คฑาภัท คุณธรรมสถิต</p>
+          <p>65010662 พงศพัศ วงศ์สวัสดิ์</p>
+          <p>65010907 รณกร คูประสิทธิ์</p>
+      </div>
+    </div>
+  
+
+  <script>
+    const cardCount = 4;
+    let rows = 0;
+
+    document.getElementById('searchForm').onsubmit = async function(event) {
+      event.preventDefault();
+
+      const searchButton = document.querySelector('#searchForm button[type="submit"]');
+      searchButton.disabled = true; 
+      let addedCardPerRow = 0;
+      let currentRow = 0;
+      const name = document.getElementById('findname').value;
+      const gameTableBody = document.getElementById('gameTableBody');
+      gameTableBody.innerHTML = '';
+      try{
+        const response = await fetch(`/crawl?name=${encodeURIComponent(name)}`);
+        if (!response.ok) {
+          throw new Error('Connection error: Unable to fetch data');
+        }
+        const data = await response.json(); 
+
+
+
+        if (data.game.length > 0) {
+          console.log('hi');
+          for (let i = 0; i < Math.ceil(data.game.length/cardCount); i++) { 
+              const row = document.createElement('div');
+              row.className = 'row'
+              row.id = `row${i}`
+              gameTableBody.appendChild(row);
+              console.log('hi');
+          }
+          data.game.forEach(game => {
+            if (addedCardPerRow == cardCount) {
+              currentRow++;
+              addedCardPerRow = 0;
+            } 
+            const card = document.createElement('div');
+            card.className = 'card'
+            card.innerHTML = `
+              <div id='card-img-container'>
+                <img id = 'card-img' src="${game.pic_link}">
+              </div>
+              <ul>
+                <li>Name: ${game.game}</li>
+                <li>Alphabet :${game.alphabet}</li>
+                <li>Release Date: ${game.release_date}</li>
+              </ul>
+            `;
+            document.getElementById(`row${currentRow}`).appendChild(card);
+            addedCardPerRow++;
+          });
+        } else {
+          const row = document.createElement('p');
+          row.innerHTML = 'No results found';
+          gameTableBody.appendChild(row);
+        } 
+      } catch(error) {
+          stopSpinner();
+          searchButton.disabled = false;
+          alert(error.message);
+      } finally{
+        // document.querySelector("html").style.height = data.game.length/2 * 100 + "vh";
+
+        document.getElementById('search_name_input').value = name; 
+
+        stopSpinner();
+        searchButton.disabled = false; 
+        document.getElementById('getdacsv').style.display = "flex";
+        // document.getElementById('myModal').style.display = "block";
+        }
+      };
+    const modal = document.getElementById("myModal");
+
+    const span = document.getElementsByClassName("credits-btn")[0];
+
+    const spinElement = document.querySelector('.spinner');
+    span.onclick = function() {
+      modal.style.display = "block";
+    }
     window.onclick = function(event) {
       if (event.target == modal) {
         modal.style.display = "none";
       }
     }
+    function startSpinner() {
+      spinElement.classList.add('start-spin');
+    }
+
+    function stopSpinner() {
+      spinElement.classList.remove('start-spin');
+      spinElement.classList.add('stop-spin');
+      spinElement.classList.remove('stop-spin');
+    }
+
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+      // spinElement.classList.toggle('start-spin');
+      startSpinner();
+    });
   </script>
 </body>
 </html>
