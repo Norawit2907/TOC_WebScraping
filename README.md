@@ -27,8 +27,5 @@ $ pip install -r ./requirements.txt
 
 ```
 $ cd .\flask_app\
-```
-
-```
 $ flask --app app run
 ```
