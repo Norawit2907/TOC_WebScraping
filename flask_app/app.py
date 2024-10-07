@@ -21,7 +21,7 @@ def getCSV():
         search = [game for game in games if search_query in game[0].lower()]  
         output = StringIO()
         writer = csv.writer(output)
-        writer.writerow(['Game', 'Alphabet', 'Release Date', 'Picture Link'])  
+        writer.writerow(['Game', 'Release Date', 'Picture Link'])  
         writer.writerows(search)  
 
         return Response(
@@ -33,7 +33,7 @@ def getCSV():
     else:
         output = StringIO()
         writer = csv.writer(output)
-        writer.writerow(['Game', 'Alphabet', 'Release Date', 'Picture Link'])  
+        writer.writerow(['Game', 'Release Date', 'Picture Link'])  
         writer.writerows(games)  
 
         return Response(
@@ -50,10 +50,10 @@ def crawl():
     search_query = request.args.get('name', '').lower()
     if search_query:
         search = [game for game in games if search_query in game[0].lower()]
-        game_list = [{'game': game[0], 'alphabet': game[1], 'release_date': game[2], 'pic_link': game[3]} for game in search]    
+        game_list = [{'game': game[0], 'release_date': game[1], 'pic_link': game[2]} for game in search]    
         return jsonify({'game': game_list, 'search_name': search_query})
     else:
-        game_list = [{'game': game[0], 'alphabet': game[1], 'release_date': game[2], 'pic_link': game[3]} for game in games]    
+        game_list = [{'game': game[0], 'release_date': game[1], 'pic_link': game[2]} for game in games]    
         return jsonify({'game': game_list, 'search_name': search_query})
 
   
