@@ -5,12 +5,30 @@
 
 <h3>How to start working</h3>
 
+<h2>Do this ONCE!!!. Create your own Virtual Environment in your computer</h2>
+
+```
+$ py -3 -m venv .venv
+```
+
+<h2>Do this everytime before you work. Activate your environment</h2>
+
+```
+$ .venv\Scripts\activate
+```
+
+<p>install dependency</p>
+
 ```
 $ pip install -r ./requirements.txt
 ```
-<h3>How to run flask</h3>
+
+<p>Run Flask app</p>
 
 ```
-$ python ./flask_app/app.py
+$ cd .\flask_app\
 ```
 
+```
+$ flask --app app run
+```

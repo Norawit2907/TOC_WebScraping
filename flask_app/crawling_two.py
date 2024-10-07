@@ -10,13 +10,28 @@ import re, requests
 # <Starter alphabet> : str
 # <Release date>     : tuple of int format => (YYYY,MM,DD)
 
+def crawl_pic(link):
+    basePath = "https://en.wikipedia.org"
+    # print(link)
+    resp = requests.get(f"{basePath}{link}",timeout=60)
+    if not resp.ok :
+        return ''
+    resp =resp.text
+    pic = re.findall(r'<td colspan="2" class="infobox-image">.*<img src="(\S*.jpg)".*>.*</td>|<td colspan="2" class="infobox-image">.*<img src="(\S*.png)".*>.*</td>',resp)
+    if not pic:
+        return ''
+    elif pic[0][0]:
+        return pic[0][0]
+    elif pic[0][1]:
+        return pic[0][1]
+
 def crawling_two():
     basePath = "https://en.wikipedia.org"
     startPath = "/wiki/List_of_PC_games_(A)"
     listOfGameName = []
 
     ## Get base HTML ##
-    resp = requests.get(f"{basePath}{startPath}")
+    resp = requests.get(f"{basePath}{startPath}",timeout=60)
     if not resp.ok :
         raise(Exception("404 Not found"))
     resp =resp.text
@@ -35,29 +50,54 @@ def crawling_two():
 
     ## Crawling game name and release date in base HTML ##
     for game in listOfGame:
-        gameName = re.findall(r'<a .*><i>(.*)</i></a>|<i><a .*>(.*)</a></i>|<a .*>(.*)</a>|<i>(.*)</i>',game[0])
+        gameName = re.findall(r'<a .*><i>(.*)</i></a>|<i><a .*>(.*)</a></i>|<a .*>(.*)</a>',game[0])
         gameDate = re.findall(r'<span data-sort-value="([0-9]{12})-([0-2][0-9])-([0-3][0-9])-[0-9]{4}"',game[5])
         if gameName and gameDate:
             gameDate = (int(gameDate[0][0]),int(gameDate[0][1]),int(gameDate[0][2]),)
             if gameName[0][0]:
-                listOfGameName.append((gameName[0][0],header[0],gameDate))
+                gamelink = re.findall(r'<a.*href="(/wiki/\S*)" .*><i>.*</i></a>',game[0])
+                if not gamelink:
+                    continue
+                elif gamelink[0]:
+                    picLink = crawl_pic(gamelink[0])
+                if picLink == "":
+                    continue
+                # print("case0 ",gameName[0][0],picLink)
+                listOfGameName.append((gameName[0][0],header[0],gameDate,picLink))
             elif gameName[0][1]:
-                listOfGameName.append((gameName[0][1],header[0],gameDate))
+                gamelink = re.findall(r'<i><a.*href="(/wiki/\S*)" .*>.*</a></i>',game[0])
+                if not gamelink:
+                    continue
+                elif gamelink[0]:
+                    picLink = crawl_pic(gamelink[0])
+                if picLink == "":
+                    continue
+                # print("case1 ",gameName[0][1],picLink)
+                listOfGameName.append((gameName[0][1],header[0],gameDate,picLink))
             elif gameName[0][2]:
-                listOfGameName.append((gameName[0][2],header[0],gameDate))
-            elif gameName[0][3]:
-                listOfGameName.append((gameName[0][3],header[0],gameDate))
+                gamelink = re.findall(r'<a.*href="(/wiki/\S*)" .*>.*</a>',game[0])
+                if not gamelink:
+                    continue
+                elif gamelink[0]:
+                    picLink = crawl_pic(gamelink[0])
+                if picLink == "":
+                    continue
+                # print("case2 ",gameName[0][2],picLink)
+                listOfGameName.append((gameName[0][2],header[0],gameDate,picLink))
+        print(len(listOfGameName))
+    # print(len(listOfGameName))
 
-    ## Test one page ##
+    # Test one page ##
     # print(listOfGameName[:21])
     # for i in listOfGameName:
     #     print(i)
     #     print("--------")
+    # print(len(listOfGameName))
     # exit()
     
-    ## Crawling game name and release date in other HTML ##
+    # Crawling game name and release date in other HTML ##
     for link in listOfAlpha:
-        resp = requests.get(f"{basePath}{link}")
+        resp = requests.get(f"{basePath}{link}",timeout=60)
         if not resp.ok :
             raise(Exception("404 Not found"))
         resp =resp.text
@@ -66,31 +106,54 @@ def crawling_two():
         header = re.findall(r'<span class="mw-page-title-main">List of PC games \(([A-Za-z]+)\)</span>',resp)
         # print(header)
 
-        listOfGame = re.findall(r'<tr>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>',resp)
+        listOfGame = re.findall(r'<tr>\n<td>(.*)\n</td>\n<td>.*\n</td>\n<td>.*\n</td>\n<td>.*\n</td>\n<td>.*\n</td>\n<td>(.*)\n</td>',resp)
 
         for game in listOfGame:
-            gameName = re.findall(r'<a .*><i>(.*)</i></a>|<i><a .*>(.*)</a></i>|<a .*>(.*)</a>|<i>(.*)</i>',game[0])
-            gameDate = re.findall(r'<span data-sort-value="([0-9]{12})-([0-2][0-9])-([0-3][0-9])-[0-9]{4}"',game[5])
+            gameName = re.findall(r'<a .*><i>(.*)</i></a>|<i><a .*>(.*)</a></i>|<a .*>(.*)</a>',game[0])
+            gameDate = re.findall(r'<span data-sort-value="([0-9]{12})-([0-2][0-9])-([0-3][0-9])-[0-9]{4}"',game[1])
             if gameName and gameDate:
                 gameDate = (int(gameDate[0][0]),int(gameDate[0][1]),int(gameDate[0][2]),)
                 if gameName[0][0]:
-                    listOfGameName.append((gameName[0][0],header[0],gameDate))
+                    gamelink = re.findall(r'<a.*href="(/wiki/\S*)" .*><i>.*</i></a>',game[0])
+                    if not gamelink:
+                        continue
+                    elif gamelink[0]:
+                        picLink = crawl_pic(gamelink[0])
+                    if picLink == "":
+                        continue
+                    # print("case0 ",gameName[0][0],picLink)
+                    listOfGameName.append((gameName[0][0],header[0],gameDate,picLink))
                 elif gameName[0][1]:
-                    listOfGameName.append((gameName[0][1],header[0],gameDate))
+                    gamelink = re.findall(r'<i><a.*href="(/wiki/\S*)" .*>.*</a></i>',game[0])
+                    if not gamelink:
+                        continue
+                    elif gamelink[0]:
+                        picLink = crawl_pic(gamelink[0])
+                    if picLink == "":
+                        continue
+                    # print("case1 ",gameName[0][1],picLink)
+                    listOfGameName.append((gameName[0][1],header[0],gameDate,picLink))
                 elif gameName[0][2]:
-                    listOfGameName.append((gameName[0][2],header[0],gameDate))
-                elif gameName[0][3]:
-                    listOfGameName.append((gameName[0][3],header[0],gameDate))
+                    gamelink = re.findall(r'<a.*href="(/wiki/\S*)" .*>.*</a>',game[0])
+                    if not gamelink:
+                        continue
+                    elif gamelink[0]:
+                        picLink = crawl_pic(gamelink[0])
+                    if picLink == "":
+                        continue
+                    # print("case2 ",gameName[0][2],picLink)
+                    listOfGameName.append((gameName[0][2],header[0],gameDate,picLink))
+            print(len(listOfGameName))
+        # print(len(listOfGameName))
 
     ## Print result ##
     # for i in listOfGameName:
     #     print(i)
     #     print("--------")
-    # print(len(listOfGameName))
+    print(len(listOfGameName), "DONE")
 
     return listOfGameName
 
-
-print("Start")
-crawling_two()
-print("End")
+# print("Start")
+# crawling_two()
+# print("End")
