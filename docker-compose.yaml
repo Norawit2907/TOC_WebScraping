@@ -8,6 +8,8 @@ services:
       - '5000:5000'
     networks:
       - tunnel
+    environment:
+      - PYTHONUNBUFFERED=0
 
 networks:
   tunnel:
