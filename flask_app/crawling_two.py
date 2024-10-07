@@ -29,7 +29,7 @@ def crawling_two():
     basePath = "https://en.wikipedia.org"
     startPath = "/wiki/List_of_PC_games_(A)"
     listOfGameName = []
-    maximum_data = 450
+    maximum_data = 300
 
     ## Get base HTML ##
     resp = requests.get(f"{basePath}{startPath}",timeout=60)
