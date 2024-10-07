@@ -43,12 +43,12 @@ def crawling_two():
     # print(len(listOfAlpha))
 
     ## Crawling row of game in bade HTML ##
-    listOfGame = re.findall(r'<tr>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>\n<td>(.*)\n</td>',resp)
+    listOfGame = re.findall(r'<tr>\n<td>(.*)\n</td>\n<td>.*\n</td>\n<td>.*\n</td>\n<td>.*\n</td>\n<td>.*\n</td>\n<td>(.*)\n</td>',resp)
 
     ## Crawling game name and release date in base HTML ##
     for game in listOfGame:
         gameName = re.findall(r'<a .*><i>(.*)</i></a>|<i><a .*>(.*)</a></i>|<a .*>(.*)</a>',game[0])
-        gameDate = re.findall(r'<span data-sort-value="([0-9]{12})-([0-2][0-9])-([0-3][0-9])-[0-9]{4}"',game[5])
+        gameDate = re.findall(r'<span data-sort-value="([0-9]{12})-([0-2][0-9])-([0-3][0-9])-[0-9]{4}"',game[1])
         if gameName and gameDate:
             gameDate = (int(gameDate[0][0]),int(gameDate[0][1]),int(gameDate[0][2]),)
             if gameName[0][0]:
@@ -99,10 +99,6 @@ def crawling_two():
         if not resp.ok :
             raise(Exception("404 Not found"))
         resp =resp.text
-
-        ## Get Alphabet of the page ##
-        header = re.findall(r'<span class="mw-page-title-main">List of PC games \(([A-Za-z]+)\)</span>',resp)
-        # print(header)
 
         listOfGame = re.findall(r'<tr>\n<td>(.*)\n</td>\n<td>.*\n</td>\n<td>.*\n</td>\n<td>.*\n</td>\n<td>.*\n</td>\n<td>(.*)\n</td>',resp)
 
