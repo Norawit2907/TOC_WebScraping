@@ -29,16 +29,13 @@ def crawling_two():
     basePath = "https://en.wikipedia.org"
     startPath = "/wiki/List_of_PC_games_(A)"
     listOfGameName = []
+    maximum_data = 450
 
     ## Get base HTML ##
     resp = requests.get(f"{basePath}{startPath}",timeout=60)
     if not resp.ok :
         raise(Exception("404 Not found"))
     resp =resp.text
-
-    ## Get Alphabet of the page ##
-    header = re.findall(r'<span class="mw-page-title-main">List of PC games \(([A-Za-z]+)\)</span>',resp)
-    # print(header)
 
     ## Crawling list of page ##
     listOfAlpha = re.findall(r'(/wiki/List_of_PC_games_\()(A[A-Za-z]|[B-Zb-z])([A-Za-z]*\)")',resp)
@@ -63,7 +60,7 @@ def crawling_two():
                 if picLink == "":
                     continue
                 # print("case0 ",gameName[0][0],picLink)
-                listOfGameName.append((gameName[0][0],header[0],gameDate,picLink))
+                listOfGameName.append((gameName[0][0],gameDate,picLink))
             elif gameName[0][1]:
                 gamelink = re.findall(r'<i><a.*href="(/wiki/\S*)" .*>.*</a></i>',game[0])
                 if not gamelink:
@@ -73,7 +70,7 @@ def crawling_two():
                 if picLink == "":
                     continue
                 # print("case1 ",gameName[0][1],picLink)
-                listOfGameName.append((gameName[0][1],header[0],gameDate,picLink))
+                listOfGameName.append((gameName[0][1],gameDate,picLink))
             elif gameName[0][2]:
                 gamelink = re.findall(r'<a.*href="(/wiki/\S*)" .*>.*</a>',game[0])
                 if not gamelink:
@@ -83,9 +80,10 @@ def crawling_two():
                 if picLink == "":
                     continue
                 # print("case2 ",gameName[0][2],picLink)
-                listOfGameName.append((gameName[0][2],header[0],gameDate,picLink))
+                listOfGameName.append((gameName[0][2],gameDate,picLink))
         print(len(listOfGameName))
-    # print(len(listOfGameName))
+    if len(listOfGameName) >= maximum_data:
+        return listOfGameName
 
     # Test one page ##
     # print(listOfGameName[:21])
@@ -122,7 +120,7 @@ def crawling_two():
                     if picLink == "":
                         continue
                     # print("case0 ",gameName[0][0],picLink)
-                    listOfGameName.append((gameName[0][0],header[0],gameDate,picLink))
+                    listOfGameName.append((gameName[0][0],gameDate,picLink))
                 elif gameName[0][1]:
                     gamelink = re.findall(r'<i><a.*href="(/wiki/\S*)" .*>.*</a></i>',game[0])
                     if not gamelink:
@@ -132,7 +130,7 @@ def crawling_two():
                     if picLink == "":
                         continue
                     # print("case1 ",gameName[0][1],picLink)
-                    listOfGameName.append((gameName[0][1],header[0],gameDate,picLink))
+                    listOfGameName.append((gameName[0][1],gameDate,picLink))
                 elif gameName[0][2]:
                     gamelink = re.findall(r'<a.*href="(/wiki/\S*)" .*>.*</a>',game[0])
                     if not gamelink:
@@ -142,9 +140,10 @@ def crawling_two():
                     if picLink == "":
                         continue
                     # print("case2 ",gameName[0][2],picLink)
-                    listOfGameName.append((gameName[0][2],header[0],gameDate,picLink))
+                    listOfGameName.append((gameName[0][2],gameDate,picLink))
             print(len(listOfGameName))
-        # print(len(listOfGameName))
+        if len(listOfGameName) >= maximum_data:
+            return listOfGameName
 
     ## Print result ##
     # for i in listOfGameName:
