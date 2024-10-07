@@ -6,8 +6,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - '5000:5000'
-    networks:
-      - tunnel
+    # networks:
+    #   - tunnel
     environment:
       - PYTHONUNBUFFERED=0
 
