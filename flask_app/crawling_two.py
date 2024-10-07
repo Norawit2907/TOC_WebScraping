@@ -84,8 +84,8 @@ def crawling_two():
                     continue
                 # print("case2 ",gameName[0][2],picLink)
                 listOfGameName.append((gameName[0][2],header[0],gameDate,picLink))
-        # print(len(listOfGameName))
-    print(len(listOfGameName))
+        print(len(listOfGameName))
+    # print(len(listOfGameName))
 
     # Test one page ##
     # print(listOfGameName[:21])
@@ -143,8 +143,8 @@ def crawling_two():
                         continue
                     # print("case2 ",gameName[0][2],picLink)
                     listOfGameName.append((gameName[0][2],header[0],gameDate,picLink))
-            # print(len(listOfGameName))
-        print(len(listOfGameName))
+            print(len(listOfGameName))
+        # print(len(listOfGameName))
 
     ## Print result ##
     # for i in listOfGameName:
